@@ -8,12 +8,13 @@ export default function useProfile(){
     const errors = ref({});
 
     const getProfile = async () => {
-        const response = await axios.get("home");
+        const response = await axios.get("home/1");
         profile.value = response.data;
+        console.log(profile.value);
     }
     return{
         profile,
-        errors,
         getProfile,
+        errors,
     }
 }
