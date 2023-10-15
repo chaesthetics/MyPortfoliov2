@@ -29,11 +29,11 @@ class HomeController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreHomeRequest $request)
-    {
-        $home = Home::create($request->validated());
-        return response()->json($home);
-    }
+    // public function store(StoreHomeRequest $request)
+    // {
+    //     $home = Home::create($request->validated());
+    //     return response()->json($home);
+    // }
 
     /**
      * Display the specified resource.
@@ -46,10 +46,10 @@ class HomeController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Home $home)
-    {
-        //
-    }
+    // public function edit(Home $home)
+    // {
+    //     //
+    // }
 
     /**
      * Update the specified resource in storage.
@@ -63,9 +63,9 @@ class HomeController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Home $home)
-    {
-        $home->delete();
-        return response()->json("Record has been deleted");
-    }
+    // public function destroy(Home $home)
+    // {
+    //     $home->delete();
+    //     return response()->json("Record has been deleted");
+    // }
 }
