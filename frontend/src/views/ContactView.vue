@@ -2,15 +2,15 @@
 </script>
 <template>
   <main>
-    <div class="flex contact w-7/12 ml-auto mr-auto mt-20 flex space-x-10">
-      <div class="left space-y-12">
+    <div class="contact w-9/12 mx-auto mt-20 md:grid md:grid-cols-2 space-y-10 md:space-y-0 md:space-x-10 pb-20">
+      <div class="space-y-12 text-center ml-auto">
         <div class="flex text-white font-bold text-5xl space-x-3"><p>Contact</p><p class="text-yellow-300">Me</p></div>
         <div class="text-white text-sm space-x-2 space-y-6">
-          <div class="flex text-left space-x-2 ml-2">
+          <div class="flex text-center space-x-2 ml-2">
             <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="rgb(234 179 8)" class="bi bi-send text-yellow-400" viewBox="0 0 16 16"> <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z"/> </svg>
             <p>aurieljames11@gmail.com</p>
           </div>
-          <div class="flex text-left space-x-2">
+          <div class="flex text-center space-x-2">
             <svg style="color: rgb(234, 179, 8);" xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-phone-call"><path d="M15.05 5A5 5 0 0 1 19 8.95M15.05 1A9 9 0 0 1 23 8.94m-1 7.98v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" fill="#eab308"></path></svg>
             <p>+63 9516766789</p>
           </div>
@@ -29,19 +29,19 @@
             </a>
           </div>
         </div>
-           <a download href="src/assets/FernandezAurielJames.pdf" class="flex items-center justify-center text-center space-x-1 text-white font-semibold hover:bg-yellow-900 hover:bg-opacity-50 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 rounded-md border-yellow-500 text-lg border-2 pl-6 pr-6 pt-2 pb-2" style="box-shadow: 0px 0px 51px 7px rgba(255,232,21,0.54);
+           <a download href="src/assets/FernandezAurielJames.pdf" class="flex lg:w-full w-5/6 items-center justify-center text-center space-x-1 text-white font-semibold hover:bg-yellow-900 hover:bg-opacity-50 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 rounded-md border-yellow-500 text-lg border-2 pl-6 pr-6 pt-2 pb-2" style="box-shadow: 0px 0px 51px 7px rgba(255,232,21,0.54);
             -webkit-box-shadow: 0px 0px 51px 7px rgba(255,232,21,0.54);
             -moz-box-shadow: 0px 0px 51px 7px rgba(255,232,21,0.54);">
-            <svg style="color: white" xmlns="http://www.w3.org/2000/svg" align-text="center" width="20" height="20" fill="currentColor" class="bi bi-cloud-arrow-down-fill" viewBox="0 0 16 16"> <path d="M8 2a5.53 5.53 0 0 0-3.594 1.342c-.766.66-1.321 1.52-1.464 2.383C1.266 6.095 0 7.555 0 9.318 0 11.366 1.708 13 3.781 13h8.906C14.502 13 16 11.57 16 9.773c0-1.636-1.242-2.969-2.834-3.194C12.923 3.999 10.69 2 8 2zm2.354 6.854-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 1 1 .708-.708L7.5 9.293V5.5a.5.5 0 0 1 1 0v3.793l1.146-1.147a.5.5 0 0 1 .708.708z" fill="white"></path> </svg>
+            <svg style="color: white" xmlns="http://www.w3.org/2000/svg" align-text="center" width="20" height="20" fill="currentColor" class="bi bi-cloud-arrow-down-fill md:hidden lg:block" viewBox="0 0 16 16"> <path d="M8 2a5.53 5.53 0 0 0-3.594 1.342c-.766.66-1.321 1.52-1.464 2.383C1.266 6.095 0 7.555 0 9.318 0 11.366 1.708 13 3.781 13h8.906C14.502 13 16 11.57 16 9.773c0-1.636-1.242-2.969-2.834-3.194C12.923 3.999 10.69 2 8 2zm2.354 6.854-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 1 1 .708-.708L7.5 9.293V5.5a.5.5 0 0 1 1 0v3.793l1.146-1.147a.5.5 0 0 1 .708.708z" fill="white"></path> </svg>
             <p class="text-md text-center">Download CV</p>
           </a>
       </div>
       <div class="right">
-        <form class="flex flex-col w-[500px] space-y-10 mt-2">
+        <form class="flex flex-col w-full space-y-6 md:space-y-10 mt-2">
           <input class="font-semibold rounded-md p-3 bg-neutral-700 outline-none placeholder-white text-white" placeholder="Your Name"/>
           <input class="font-semibold rounded-md p-3 bg-neutral-700 outline-none placeholder-white text-white" placeholder="Your Email"/>
           <textarea class="font-semibold rounded-md p-3 bg-neutral-700 outline-none h-40 placeholder-white text-white">Your Message</textarea>
-          <button class="text-center hover:bg-yellow-800 text-white font-bold rounded-md bg-yellow-700 w-1/5 pt-2 pb-2 pl-6 pr-6 animation duration-300">Submit</button>
+          <button class="text-center hover:bg-yellow-800 text-white font-bold rounded-md bg-yellow-700 w-40 pt-2 pb-2 pl-6 pr-6 animation duration-300">Submit</button>
         </form>
       </div>
     </div>

@@ -15,12 +15,12 @@ const changeActive = (event) => {
 
 <template>
   <main>
-    <div class="about w-4/6 ml-auto mr-auto mt-10 bg-neutral-800 pl-5 pr-4 pt-5 pb-5 rounded-xl">
-      <p class="text-white font-bold text-lg pb-4 uppercase pl-4">About me</p><hr class="border-1 border-yellow-300 border">
-      <div class="flex text-white items-center justify-around pt-4">
-        <img src="@/assets/25.jpg" class="h-[250px] w-[250px] rounded-full">
-        <div class="max-w-50 w-1/2 break-words space-y-3 text-md">
-         <p>
+    <div class="about w-5/6 md:w-4/6 ml-auto mr-auto mt-10 bg-neutral-800 pl-5 pr-4 pt-5 pb-10 rounded-xl">
+      <p class="text-white font-bold text-lg pb-4 uppercase pl-4">About me</p><hr class="border-1 border-yellow-300 border md:mb-5">
+      <div class="flex text-white  grid md:grid-cols-2 md:justify-around">
+        <img src="@/assets/25.jpg" class="h-[200px] w-[200px] mx-auto mt-10 md:mt-0 md:h-[250px] md:w-[250px] rounded-full">
+        <div class="max-w-50 mt-10 break-words space-y-3 text-md">
+         <p class="flex justify-center text-center md:text-left md:justify-start">
           "Hi everyone! My name is Auriel James V. Fernandez from Mangatarem, Pangasinan. Currently, I am working as a Software QA Engineer.
           When I have free time, I do personal projects to enhance my skills.<br>
           I really enjoy studying Web Development and, In my opinion, Creating a program is not just a job, but also an art that has aesthetic value."
@@ -28,7 +28,7 @@ const changeActive = (event) => {
         </div>
       </div>
     </div>
-    <div class="w-4/6 ml-auto mr-auto">
+    <div class="w-5/6 md:w-4/6 ml-auto mr-auto">
       <div class="flex pt-10 font-semibold items-center">
         <hr class="border border-1 border-yellow-300 w-20">
         <p class="text-white pl-3 text-xl">Skills</p>
@@ -43,7 +43,7 @@ const changeActive = (event) => {
         <button v-else id="tools" v-on:click="changeActive($event)" class="text-white font-semibold hover:bg-neutral-800  pt-2 hover:rounded-sm  pb-2 pr-3 pl-3 hover:border-yellow-300 animation duration-300">Tools
         </button>
       </div>
-      <div v-if="isActive === 'techstack'" class="animation transition transition-opacity duration-300 ">
+      <div v-if="isActive === 'techstack'" class="animation transition transition-opacity duration-300">
         <SkillsView />
       </div>
       <div v-else class="animation duration-300">
