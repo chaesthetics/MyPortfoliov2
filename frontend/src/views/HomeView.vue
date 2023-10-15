@@ -2,7 +2,7 @@
   import useProfile from '@/composables/home.js';
   import { onMounted } from 'vue';
 
-  const { profile, getProfile, errors } = useProfile();
+  const { profile, getProfile } = useProfile();
   onMounted(()=>getProfile());
 
         var TxtType = function(el, toRotate, period) {
@@ -46,7 +46,7 @@
         }, delta);
     };
 
-      window.onload = () => {
+      onMounted( () => {
         var elements = document.getElementsByClassName('typewrite');
         for (var i=0; i<elements.length; i++) {
             var toRotate = elements[i].getAttribute('data-type');
@@ -59,7 +59,8 @@
         css.type = "text/css";
         css.innerHTML = ".typewrite > .wrap { border-right: 0.08em solid #fff}";
         document.body.appendChild(css);
-    };
+    }
+    );
   
 </script>
 <template>
