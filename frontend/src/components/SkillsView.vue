@@ -3,7 +3,7 @@
 </script>
 
 <template>
-    <div class="grid grid-cols-4 gap-5 mt-5 pb-10">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-5 mt-5 pb-10">
         <button class="group  flex space-x-3 border-yellow-300 border-opacity-50 rounded-md border-2 pt-3 pb-3 pl-4 pr-4 items-center hover:bg-yellow-500 hover:bg-opacity-5">
             <svg class="transition ease-in-out group-hover:-translate-y-1 group-hover:scale-120 duration-300" height="35px" width="35px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" id="html-5"><path fill="#E44D26" d="M9.032 2l10.005 112.093 44.896 12.401 45.02-12.387 10.015-112.107h-109.936zm89.126 26.539l-.627 7.172-.276 3.289h-52.665000000000006l1.257 14h50.156000000000006l-.336 3.471-3.233 36.119-.238 2.27-28.196 7.749v.002l-.034.018-28.177-7.423-1.913-21.206h13.815000000000001l.979 10.919 15.287 4.081h.043v-.546l15.355-3.875 1.604-17.579h-47.698l-3.383-38.117-.329-3.883h68.939l-.33 3.539z"></path></svg>
             <div class="text-left leading-none">
