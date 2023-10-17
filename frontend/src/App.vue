@@ -12,10 +12,7 @@ onMounted(() => {
 </script>
 
 <template>
-<header v-if="router.currentRoute.value.path === '/admin'">
-</header>
-
-<header v-else>
+<header>
 <div class="bg-black w-full min-w-screen">
   <nav class="flex w-full text-white flex items-center pt-3  md:w-4/6 md:mx-auto md:justify-between ">
     <div class="flex space-x-3 mb-3 items-center hidden md:flex">
