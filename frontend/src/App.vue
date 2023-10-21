@@ -7,15 +7,15 @@ import { onMounted } from 'vue';
 
 onMounted(() => {
     initFlowbite();
+    console.log(router.currentRoute.value);
 });
 
 </script>
 
 <template>
 
-<header v-if="router.currentRoute.value.name === 'admin'">
+<header v-if="router.currentRoute.value.fullPath.includes('admin')">
 </header>
-<header v-else-if="router.currentRoute.value.name === 'login'"></header>
 <header v-else>
 <div class="bg-black w-full min-w-screen">
   <nav class="flex w-full text-white flex items-center pt-3  md:w-4/6 md:mx-auto md:justify-between ">
