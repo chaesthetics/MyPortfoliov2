@@ -25,6 +25,7 @@ export default function useAccount(){
         localStorage.removeItem("token");
         router.push({name: "login"});
     }
+   
     const getToken = async () => {
         const token = localStorage.getItem("token");
         if(!token){
@@ -33,7 +34,7 @@ export default function useAccount(){
             router.push({name: "admin"});
         }
     }
-     
+ 
     return{
         errors,
         user,
