@@ -21,17 +21,25 @@ export default function useAccount(){
         }
     }
 
+    const logout = async () => {
+        localStorage.removeItem("token");
+        router.push({name: "login"});
+    }
+   
     const getToken = async () => {
         const token = localStorage.getItem("token");
         if(!token){
             router.push({name: "login"});
+        }else{
+            router.push({name: "admin"});
         }
     }
-     
+ 
     return{
         errors,
         user,
         login,
-        getToken
+        getToken,
+        logout
     }   
 }
