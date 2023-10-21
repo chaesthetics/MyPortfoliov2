@@ -1,5 +1,10 @@
 <script setup>
+import useAccount from '@/components/composables/account';
+import { onMounted } from 'vue';
 
+const { getToken, user } = useAccount();
+
+onMounted(()=>{ getToken(); })
 </script>
 
 <template>
