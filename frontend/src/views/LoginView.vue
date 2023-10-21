@@ -1,13 +1,16 @@
 <script setup>
 import { reactive } from "vue";
+import { onMounted } from "vue";
 import useAccount from "@/components/composables/account.js";
 
-const { errors, login } = useAccount();
+const { getToken, errors, login } = useAccount();
 
 const loginForm = reactive({
     email: "",
     password: "",
 });
+
+onMounted(()=>{ getToken() });
 
 </script>
 
