@@ -10,7 +10,7 @@ const loginForm = reactive({
     password: "",
 });
 
-onMounted(()=>{ getToken() });
+onMounted(()=>getToken());
 
 </script>
 
