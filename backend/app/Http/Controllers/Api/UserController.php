@@ -13,25 +13,49 @@ class UserController extends Controller
     public function createUser(Request $request)
     {
         try{
-            $validateUser = Validator::make($request->all(),
-            [
-                'name' => 'required',
-                'email' => 'required|email|unique:users,email',
-                'password' => 'required'
-            ]);
+            // $validateUser = Validator::make($request->all(),
+            // [
+            //     'name' => 'required',
+            //     'email' => 'required|email|unique:users,email',
+            //     'password' => 'required'
+            // ]);
 
-            if($validateUser->fails()){
-                return response()->json([
-                    'status' => false,
-                    'message' => 'Validation error',
-                    'errors' => $validateUser->errors()
-                ], 401);
-            }
+            // if($validateUser->fails()){
+            //     return response()->json([
+            //         'status' => false,
+            //         'message' => 'Validation error',
+            //         'errors' => $validateUser->errors()
+            //     ], 401);
+            // }
+
+            $customMessages = [
+                "firstname.required" => "This field is required",
+                "lastname.required" => "This field is required",
+                "email.required" => "This field is required",
+                "password.required" => "This field is required",
+                "description.required" => "This field is required",
+                "githublink.required" => "This field is required",
+                "contactlink.required" => "This field is required",
+            ];
+
+            $validatedData = $request->validate([
+                "firstname" => 'required',
+                "lastname" => 'required',
+                "email" => 'required',
+                "password" => 'required',
+                "description" => 'required',
+                "githublink" => 'required',
+                "contactlink" => 'required',
+            ], $customMessages);
             
             $user = User::create([
-                'name' => $request->name,
+                'firstname' => $request->firstname,
+                'lastname' => $request->lastname,
                 'email' => $request->email,
-                'password' => Hash::make($request->password)
+                'password' => Hash::make($request->password),
+                'description' => $request->description,
+                'githublink' => $request->githublink,
+                'contactlink' => $request->contactlink,
             ]);
 
             return response()->json([
@@ -45,6 +69,10 @@ class UserController extends Controller
                 'message' => $th->getMessage()
             ], 500);
         }
+    }
+
+    public function getUser($id){
+        return User::find($id);
     }
 
     public function loginUser(Request $request)
