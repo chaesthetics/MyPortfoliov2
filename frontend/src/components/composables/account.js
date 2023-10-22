@@ -31,8 +31,13 @@ export default function useAccount(){
         if(!token){
             router.push({name: "login"});
         }else{
-            router.push({name: "admin"});
+            router.push({name: "dashboard"});
         }
+    }
+
+    const getUser = async () => {
+        const response = await axios.get("user/1");
+        user.value = response.data;
     }
  
     return{
@@ -40,6 +45,7 @@ export default function useAccount(){
         user,
         login,
         getToken,
-        logout
+        logout,
+        getUser,
     }   
 }
