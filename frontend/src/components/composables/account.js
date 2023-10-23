@@ -31,7 +31,7 @@ export default function useAccount(){
         if(!token){
             router.push({name: "login"});
         }else{
-            router.push({name: "dashboard"});
+            router.push({name: "admin"});
         }
     }
 
