@@ -13,21 +13,7 @@ class UserController extends Controller
     public function createUser(Request $request)
     {
         try{
-            // $validateUser = Validator::make($request->all(),
-            // [
-            //     'name' => 'required',
-            //     'email' => 'required|email|unique:users,email',
-            //     'password' => 'required'
-            // ]);
-
-            // if($validateUser->fails()){
-            //     return response()->json([
-            //         'status' => false,
-            //         'message' => 'Validation error',
-            //         'errors' => $validateUser->errors()
-            //     ], 401);
-            // }
-
+        
             $customMessages = [
                 "firstname.required" => "This field is required",
                 "lastname.required" => "This field is required",

@@ -8,6 +8,7 @@ onMounted(()=>{
     getUser();
     initFlowbite();
 });
+
 </script>
 
 <template>
