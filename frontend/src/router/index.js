@@ -52,7 +52,7 @@ const router = createRouter({
         {
           path: '/admin/personal',
           name: 'personal',
-          component: () => import('../views/admin/PersonalInfoView.vue')
+          component: () => import('../views/admin/GeneralView.vue')
         },
         {
           path: '/admin/projects',
