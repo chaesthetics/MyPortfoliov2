@@ -99,4 +99,50 @@ class UserController extends Controller
             ], 500);
         }
     }
+
+    public function updateUser(Request $request, $id)
+    {
+        try{  
+
+            $customMessages = [
+                "firstname.required" => "firstname field is required",
+                "lastname.required" => "lastname field is required",
+                "email.required" => "email field is required",
+                "password.required" => "password field is required",
+                "description.required" => "description field is required",
+                "githublink.required" => "githublink field is required",
+                "contactlink.required" => "contactlink field is required",
+            ];
+
+            $validatedUser = $request->validate([
+                "firstname" => "required",
+                "lastname" => "required",
+                "email" => "required",
+                "password" => "required", 
+                "description" => "required",
+                "githublink" => "required",
+                "contactlink" => "required", 
+            ], $customMessages);
+
+            $user = User::find($id);
+
+            $user->update([
+                'firstname' => $request->firstname,
+                'lastname' => $request->lastname,
+                'email' => $request->email,
+                'password' => $request->password,   
+                'description' => $request->description,
+                'githublink' => $request->githublink,
+                'contactlink' => $request->contactlink,
+            ]);
+
+            return response()->json("User information updated"); 
+
+        }catch(\Throwable $th){    
+            return response()->json([
+                "status" => false,
+                "message" => $th->getMessage(),
+            ], 500);
+        }
+    }
 }

@@ -25,3 +25,4 @@ Route::post('/auth/register', [UserController::class, 'createUser']);
 Route::post('/auth/login', [UserController::class, 'loginUser']);
 Route::post('auth/register', [UserController::class, 'createUser']);
 Route::get('/auth/user/{id}', [UserController::class, 'getUser']); 
+Route::post('/auth/update/{id}', [UserController::class, 'updateUser']); 
