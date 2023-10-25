@@ -142,4 +142,23 @@ class UserController extends Controller
             ], 500);
         }
     }
+
+    public function updateAvatar(Request $request, $id)
+    {
+        $user = User::find($id);
+
+        try{
+            $filename = $request->getSchemeAndHttpHost() . '/assets/img/' . time() . '.' . $request->avatar->extension();
+            $request->avatar->move(public_path('/assets/img/'), $filename);
+            $user->update([
+            "avatar" => $filename,
+            ]);
+            return response()->json("Avatar updated successfully");
+        }catch(\Throwable $th){
+            return response()->json([
+                "status" => false,
+                "message" => $th->getMessage(),
+            ], 500);
+        }
+    }
 }

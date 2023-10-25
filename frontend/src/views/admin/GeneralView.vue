@@ -3,8 +3,9 @@ import useAccount from '@/components/composables/account';
 import { initFlowbite } from 'flowbite';
 import { onMounted } from 'vue';
 import { useRouter } from "vue-router";
+
 const router = useRouter();
-const { user, getUser } = useAccount();
+const { user, getUser, updateUser, updateAvatar } = useAccount();
 
 onMounted(()=>{
     getUser();
@@ -13,6 +14,12 @@ onMounted(()=>{
 
 const viewSite = () => {
     router.push({name: "home"});
+}
+
+function loadFile(event){
+    var avatar = event.target.files;
+    console.log(avatar[0]);
+    updateAvatar(avatar[0]);
 }
 
 </script>
@@ -32,7 +39,11 @@ const viewSite = () => {
     <p class="items-center text-gray-200 font-semibold text-2xl">General Information</p>
     <hr class="h-1/2 bg-green-400">
     <div class="main py-6 px-8  items-center flex justify-around space-x-20 w-2/3">
-        <img class="h-[160px] w-[160px] rounded-full" src="https://jira.atlassian.com/secure/projectavatar?pid=18514&avatarId=106292">
+        <div class="relative group">
+        <img class="h-[160px] w-[160px] rounded-full group-hover:opacity-20" src="https://jira.atlassian.com/secure/projectavatar?pid=18514&avatarId=106292">
+        <input @change="loadFile" type="file" id="avatar" name="avatar" class="absolute top-1/2 w-[160px] opacity-0 z-50">
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="white" class="bi bi-card-image absolute top-1/2 w-[160px] opacity-0 group-hover:opacity-100" viewBox="0 0 16 16"> <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/> <path d="M1.5 2A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13zm13 1a.5.5 0 0 1 .5.5v6l-3.775-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12v.54A.505.505 0 0 1 1 12.5v-9a.5.5 0 0 1 .5-.5h13z"/> </svg>
+        </div>
         <div class="space-y-4">
             <div class="flex space-x-3 items-center">
                 <button data-modal-target="authentication-modal" data-modal-toggle="authentication-modal" class="py-2 px-6 bg-neutral-800 text-white rounded-md hover:bg-green-700 shadow border hover:border-green-700 border-gray-600">Edit profile</button>
@@ -52,34 +63,34 @@ const viewSite = () => {
                             </button>
                             <div class="px-6 py-6 lg:px-8">
                                 <h3 class="mb-4 text-xl font-medium text-white dark:text-white">Update General Info</h3>
-                                <form class="space-y-6" action="#">
+                                <form class="space-y-6" @submit.prevent="updateUser(1)">
                                     <div class="grid grid-cols-2 gap-3">
                                         <div>
-                                            <label for="email" class="mb-2 text-sm font-medium text-white dark:text-white">Your email</label>
-                                            <input type="email" name="email" id="email" class="text-white bg-neutral-600  text-sm rounded-lg placeholder-white  block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="name@company.com" required>
+                                            <label for="firstname" class="mb-2 text-sm font-medium text-white dark:text-white">First Name</label>
+                                            <input v-model="user.firstname" type="text" class="text-white bg-neutral-600  text-sm rounded-lg placeholder-gray-400  block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Firstname">
                                         </div>
                                         <div>
-                                            <label for="email" class="mb-2 text-sm font-medium text-white dark:text-white">Your email</label>
-                                            <input type="email" name="email" id="email" class="text-white bg-neutral-600  text-sm rounded-lg placeholder-white  block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="name@company.com" required>
+                                            <label for="lastname" class="mb-2 text-sm font-medium text-white dark:text-white">Last Name</label>
+                                            <input v-model="user.lastname" type="text" class="text-white bg-neutral-600  text-sm rounded-lg placeholder-gray-400  block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Lastname">
                                         </div>
                                     </div>
                                     <div>
-                                        <label for="email" class="block mb-2 text-sm font-medium text-white dark:text-white">Your email</label>
-                                        <input type="email" name="email" id="email" class="text-white bg-neutral-600  text-sm rounded-lg placeholder-white  block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="name@company.com" required>
+                                        <label for="email" class="block mb-2 text-sm font-medium text-white dark:text-white">Email</label>
+                                        <input v-model="user.email" type="email" class="text-white bg-neutral-600  text-sm rounded-lg placeholder-gray-400  block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Email">
                                     </div>
                                      <div class="grid grid-cols-2 gap-3">
                                         <div>
-                                            <label for="email" class="mb-2 text-sm font-medium text-white dark:text-white">Your email</label>
-                                            <input type="email" name="email" id="email" class="text-white bg-neutral-600  text-sm rounded-lg placeholder-white  block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="name@company.com" required>
+                                            <label for="GithubLink" class="mb-2 text-sm font-medium text-white dark:text-white">Github Link</label>
+                                            <input v-model="user.githublink" type="text" class="text-white bg-neutral-600  text-sm rounded-lg placeholder-gray-400  block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Github Link">
                                         </div>
                                         <div>
-                                            <label for="email" class="mb-2 text-sm font-medium text-white dark:text-white">Your email</label>
-                                            <input type="email" name="email" id="email" class="text-white bg-neutral-600  text-sm rounded-lg placeholder-white  block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="name@company.com" required>
+                                            <label for="ContactLink" class="mb-2 text-sm font-medium text-white dark:text-white">Contact Link</label>
+                                            <input v-model="user.contactlink" type="text" class="text-white bg-neutral-600  text-sm rounded-lg placeholder-gray-400  block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Contact Link">
                                         </div>
                                     </div>
                                     <div>
-                                        <label for="email" class="block mb-2 text-sm font-medium text-white dark:text-white">Description</label>
-                                        <textarea  name="email" id="email" class="text-white bg-neutral-600  text-sm rounded-lg placeholder-white  block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"></textarea>
+                                        <label for="Description" class="block mb-2 text-sm font-medium text-white dark:text-white">Description</label>
+                                        <textarea v-model="user.description" class="text-white bg-neutral-600  text-sm rounded-lg placeholder-gray-400  block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"></textarea>
                                     </div>
                                     <div class="flex justify-between">
                                         <div class="flex items-start">
