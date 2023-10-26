@@ -2,12 +2,25 @@
 import useAccount from '@/components/composables/account';
 import { initFlowbite } from 'flowbite';
 import { onMounted } from 'vue';
-const { user, getUser } = useAccount();
+import { useRouter } from "vue-router";
+
+const router = useRouter();
+const { user, getUser, updateUser, updateAvatar } = useAccount();
 
 onMounted(()=>{
     getUser();
     initFlowbite();
 });
+
+const viewSite = () => {
+    router.push({name: "home"});
+}
+
+function loadFile(event){
+    var avatar = event.target.files;
+    console.log(avatar[0]);
+    updateAvatar(avatar[0]);
+}
 
 </script>
 
@@ -26,12 +39,79 @@ onMounted(()=>{
     <p class="items-center text-gray-200 font-semibold text-2xl">General Information</p>
     <hr class="h-1/2 bg-green-400">
     <div class="main py-6 px-8  items-center flex justify-around space-x-20 w-2/3">
-        <img class="h-[160px] w-[160px] rounded-full" src="https://jira.atlassian.com/secure/projectavatar?pid=18514&avatarId=106292">
+        <div class="relative group">
+        <img class="h-[160px] w-[160px] rounded-full group-hover:opacity-20" src="https://jira.atlassian.com/secure/projectavatar?pid=18514&avatarId=106292">
+        <input @change="loadFile" type="file" id="avatar" name="avatar" class="absolute top-1/2 w-[160px] opacity-0 z-50">
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="white" class="bi bi-card-image absolute top-1/2 w-[160px] opacity-0 group-hover:opacity-100" viewBox="0 0 16 16"> <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/> <path d="M1.5 2A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13zm13 1a.5.5 0 0 1 .5.5v6l-3.775-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12v.54A.505.505 0 0 1 1 12.5v-9a.5.5 0 0 1 .5-.5h13z"/> </svg>
+        </div>
         <div class="space-y-4">
             <div class="flex space-x-3 items-center">
-                <button class="py-2 px-6 bg-neutral-800 text-white rounded-md hover:bg-green-700 shadow">Edit profile</button>
-                <button class="py-2 px-6 bg-neutral-800 text-white rounded-md hover:bg-green-700 shadow">View Site</button>
+                <button data-modal-target="authentication-modal" data-modal-toggle="authentication-modal" class="py-2 px-6 bg-neutral-800 text-white rounded-md hover:bg-green-700 shadow border hover:border-green-700 border-gray-600">Edit profile</button>
+                <button @click="viewSite" class="py-2 px-6 bg-neutral-800 text-white rounded-md hover:bg-green-700 shadow border hover:border-green-700 border-gray-600">View Site</button>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-settings text-neutral-400"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+
+                <!-- Main modal -->
+                <div id="authentication-modal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                    <div class="relative w-full max-w-lg max-h-full">
+                        <!-- Modal content -->
+                        <div class="relative rounded-lg shadow dark:bg-gray-700 bg-neutral-800">
+                            <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-neutral-600 hover:text-white rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="authentication-modal">
+                                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                                </svg>
+                                <span class="sr-only">Close modal</span>
+                            </button>
+                            <div class="px-6 py-6 lg:px-8">
+                                <h3 class="mb-4 text-xl font-medium text-white dark:text-white">Update General Info</h3>
+                                <form class="space-y-6" @submit.prevent="updateUser(1)">
+                                    <div class="grid grid-cols-2 gap-3">
+                                        <div>
+                                            <label for="firstname" class="mb-2 text-sm font-medium text-white dark:text-white">First Name</label>
+                                            <input v-model="user.firstname" type="text" class="text-white bg-neutral-600  text-sm rounded-lg placeholder-gray-400  block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Firstname">
+                                        </div>
+                                        <div>
+                                            <label for="lastname" class="mb-2 text-sm font-medium text-white dark:text-white">Last Name</label>
+                                            <input v-model="user.lastname" type="text" class="text-white bg-neutral-600  text-sm rounded-lg placeholder-gray-400  block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Lastname">
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label for="email" class="block mb-2 text-sm font-medium text-white dark:text-white">Email</label>
+                                        <input v-model="user.email" type="email" class="text-white bg-neutral-600  text-sm rounded-lg placeholder-gray-400  block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Email">
+                                    </div>
+                                     <div class="grid grid-cols-2 gap-3">
+                                        <div>
+                                            <label for="GithubLink" class="mb-2 text-sm font-medium text-white dark:text-white">Github Link</label>
+                                            <input v-model="user.githublink" type="text" class="text-white bg-neutral-600  text-sm rounded-lg placeholder-gray-400  block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Github Link">
+                                        </div>
+                                        <div>
+                                            <label for="ContactLink" class="mb-2 text-sm font-medium text-white dark:text-white">Contact Link</label>
+                                            <input v-model="user.contactlink" type="text" class="text-white bg-neutral-600  text-sm rounded-lg placeholder-gray-400  block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Contact Link">
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label for="Description" class="block mb-2 text-sm font-medium text-white dark:text-white">Description</label>
+                                        <textarea v-model="user.description" class="text-white bg-neutral-600  text-sm rounded-lg placeholder-gray-400  block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"></textarea>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <div class="flex items-start">
+                                            <div class="flex items-center h-5">
+                                                <input id="remember" type="checkbox" value="" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 dark:bg-gray-600 dark:border-gray-500 dark:focus:ring-green-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800">
+                                            </div>
+                                            <label for="remember" class="ml-2 text-sm font-medium text-white dark:text-gray-300">Remember me</label>
+                                        </div>
+                                        <a href="#" class="text-sm text-green-400 hover:underline dark:text-green-500">Lost Password?</a>
+                                    </div>
+                                    <button type="submit" class="w-full text-white bg-green-700 hover:bg-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Update</button>
+                                    <div class="text-sm font-medium text-gray-500 dark:text-gray-300">
+                                        Not registered? <a href="#" class="text-green-400 hover:underline dark:text-green-500">Add account?</a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+
+
             </div>
             <div>
                 <p class="text-white font-semibold text-lg">{{ user.firstname }} {{ user.lastname }}</p>
@@ -43,11 +123,11 @@ onMounted(()=>{
         </div>
     </div>
     <div class="">
-    <div class="main py-6 px-8  items-center flex space-x-3 w-2/3">
+    <div class="main py-6 px-8 items-center flex space-x-3 w-2/3">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" class="bi bi-github" viewBox="0 0 16 16"> <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/> </svg>
         <p class="text-white">{{ user.githublink }}</p>
     </div>
-    <div class="main  px-8  items-center flex space-x-3 w-2/3">
+    <div class="main px-6 items-center flex space-x-3 w-2/3">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" class="bi bi-telephone" viewBox="0 0 16 16"> <path d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.568 17.568 0 0 0 4.168 6.608 17.569 17.569 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.678.678 0 0 0-.58-.122l-2.19.547a1.745 1.745 0 0 1-1.657-.459L5.482 8.062a1.745 1.745 0 0 1-.46-1.657l.548-2.19a.678.678 0 0 0-.122-.58L3.654 1.328zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z"/> </svg>
         <p class="text-white">{{ user.contactlink }}</p>
     </div>

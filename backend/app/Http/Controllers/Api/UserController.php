@@ -108,7 +108,6 @@ class UserController extends Controller
                 "firstname.required" => "firstname field is required",
                 "lastname.required" => "lastname field is required",
                 "email.required" => "email field is required",
-                "password.required" => "password field is required",
                 "description.required" => "description field is required",
                 "githublink.required" => "githublink field is required",
                 "contactlink.required" => "contactlink field is required",
@@ -118,7 +117,6 @@ class UserController extends Controller
                 "firstname" => "required",
                 "lastname" => "required",
                 "email" => "required",
-                "password" => "required", 
                 "description" => "required",
                 "githublink" => "required",
                 "contactlink" => "required", 
@@ -129,8 +127,7 @@ class UserController extends Controller
             $user->update([
                 'firstname' => $request->firstname,
                 'lastname' => $request->lastname,
-                'email' => $request->email,
-                'password' => $request->password,   
+                'email' => $request->email,  
                 'description' => $request->description,
                 'githublink' => $request->githublink,
                 'contactlink' => $request->contactlink,
@@ -139,6 +136,25 @@ class UserController extends Controller
             return response()->json("User information updated"); 
 
         }catch(\Throwable $th){    
+            return response()->json([
+                "status" => false,
+                "message" => $th->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function updateAvatar(Request $request, $id)
+    {
+        $user = User::find($id);
+
+        try{
+            $filename = $request->getSchemeAndHttpHost() . '/assets/img/' . time() . '.' . $request->avatar->extension();
+            $request->avatar->move(public_path('/assets/img/'), $filename);
+            $user->update([
+            "avatar" => $filename,
+            ]);
+            return response()->json("Avatar updated successfully");
+        }catch(\Throwable $th){
             return response()->json([
                 "status" => false,
                 "message" => $th->getMessage(),
