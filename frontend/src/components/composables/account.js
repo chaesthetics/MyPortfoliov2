@@ -43,7 +43,7 @@ export default function useAccount(){
     const updateUser = async(id) => {
         try{
             await axios.post("/update/"+id, user.value);
-            await window.location.reload();
+            getUser();
         }catch(error){
             if(error.response.status === 422){
                 errors.value = error.response.data.errors;
@@ -51,10 +51,10 @@ export default function useAccount(){
         }
     }
 
-    const updateAvatar = async (id, data) => {
+    const updateAvatar = async (data, id) => {
         try{
             await axios.post("changeAvatar/"+id, data);
-            await window.location.reload();
+            getUser();
         }catch(error){
             if(error.response.status === 422){
                 errors.value = error.response.data.errors;

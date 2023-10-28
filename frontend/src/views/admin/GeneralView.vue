@@ -3,6 +3,7 @@ import useAccount from '@/components/composables/account';
 import { initFlowbite } from 'flowbite';
 import { onMounted } from 'vue';
 import { useRouter } from "vue-router";
+import { ref } from 'vue';
 
 const router = useRouter();
 const { user, getUser, updateUser, updateAvatar } = useAccount();
@@ -16,10 +17,38 @@ const viewSite = () => {
     router.push({name: "home"});
 }
 
-function loadFile(event){
-    var avatar = event.target.files;
-    console.log(avatar[0]);
-    updateAvatar(avatar[0]);
+
+
+const imageData = ref(null);
+
+const convertToBase64 = async (file) => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = (error) => reject(error);
+    reader.readAsDataURL(file);
+  });
+};
+
+const handleFileUpload = async (event) => {
+  const selectedFile = event.target.files[0];
+
+  if (selectedFile) {
+    try {
+      const base64Data = await convertToBase64(selectedFile);
+      imageData.value = base64Data;
+    
+        console.log(imageData.value);
+
+      const avatarPayLoad = {
+        "avatar": imageData.value,
+      }
+
+      updateAvatar(avatarPayLoad, 1); 
+    } catch (error) {
+      console.error("Error converting image to Base64:", error);
+    }
+  }
 }
 
 </script>
@@ -40,8 +69,8 @@ function loadFile(event){
     <hr class="h-1/2 bg-green-400">
     <div class="main py-6 px-8  items-center flex justify-around space-x-20 w-2/3">
         <div class="relative group">
-        <img class="h-[160px] w-[160px] rounded-full group-hover:opacity-20" src="https://jira.atlassian.com/secure/projectavatar?pid=18514&avatarId=106292">
-        <input @change="loadFile" type="file" id="avatar" name="avatar" class="absolute top-1/2 w-[160px] opacity-0 z-50">
+        <img class="h-[160px] w-[160px] rounded-full group-hover:opacity-20" :src="user.avatar" >
+        <input @change="handleFileUpload" type="file" id="avatar" name="avatar" class="absolute top-1/2 w-[160px] opacity-0 z-50">
         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="white" class="bi bi-card-image absolute top-1/2 w-[160px] opacity-0 group-hover:opacity-100" viewBox="0 0 16 16"> <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/> <path d="M1.5 2A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13zm13 1a.5.5 0 0 1 .5.5v6l-3.775-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12v.54A.505.505 0 0 1 1 12.5v-9a.5.5 0 0 1 .5-.5h13z"/> </svg>
         </div>
         <div class="space-y-4">
