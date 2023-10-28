@@ -13,7 +13,7 @@ export default function useAccount(){
         try{
             const response = await axios.post("login", data);
             localStorage.setItem("token", response.data.token);
-            await router.push({name: "admin"});
+            await router.push({name: "dashboard"});
         }catch(error){
             if(error.response.status === 422){
                 errors.value = error.response.data.errors;
@@ -31,13 +31,35 @@ export default function useAccount(){
         if(!token){
             router.push({name: "login"});
         }else{
-            router.push({name: "admin"});
+            router.push({name: "dashboard"});
         }
     }
 
     const getUser = async () => {
         const response = await axios.get("user/1");
         user.value = response.data;
+    }
+
+    const updateUser = async(id) => {
+        try{
+            await axios.post("/update/"+id, user.value);
+            getUser();
+        }catch(error){
+            if(error.response.status === 422){
+                errors.value = error.response.data.errors;
+            }
+        }
+    }
+
+    const updateAvatar = async (data, id) => {
+        try{
+            await axios.post("changeAvatar/"+id, data);
+            getUser();
+        }catch(error){
+            if(error.response.status === 422){
+                errors.value = error.response.data.errors;
+            }
+        }
     }
  
     return{
@@ -47,5 +69,7 @@ export default function useAccount(){
         getToken,
         logout,
         getUser,
+        updateUser,
+        updateAvatar,
     }   
 }
