@@ -80,7 +80,7 @@
         <p class="text-zinc-300 font-semibold text-md">{{ user.description }}</p>
       </div>
       <div class="items-center justify-center">
-      <img src="@/assets/25.jpg" class="h-[200px] w-[200px] md:w-[280px] md:h-[280px] rounded-full border border-2 border-yellow-300 ml-auto mr-auto" style="box-shadow: 0px 0px 104px -16px rgba(211,255,16,0.75);
+      <img :src="user.avatar" class="h-[200px] w-[200px] md:w-[280px] md:h-[280px] rounded-full border border-2 border-yellow-300 ml-auto mr-auto" style="box-shadow: 0px 0px 104px -16px rgba(211,255,16,0.75);
         -webkit-box-shadow: 0px 0px 104px -16px rgba(211,255,16,0.75);
         -moz-box-shadow: 0px 0px 104px -16px rgba(211,255,16,0.75);">
       <div class="flex space-x-3 justify-center mt-10 ml-1">
