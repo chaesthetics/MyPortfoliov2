@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\ProjectsController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\homeController;
 use Illuminate\Http\Request;
@@ -27,3 +28,6 @@ Route::post('auth/register', [UserController::class, 'createUser']);
 Route::get('/auth/user/{id}', [UserController::class, 'getUser']); 
 Route::post('/auth/update/{id}', [UserController::class, 'updateUser']); 
 Route::post('/auth/changeAvatar/{id}', [UserController::class, 'updateAvatar']);
+
+Route::get("/auth/project", [ProjectsController::class, "getProjects"]);
+Route::post("/auth/createproject", [ProjectsController::class,"createProject"]);
