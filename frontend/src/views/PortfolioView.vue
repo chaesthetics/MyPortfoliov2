@@ -1,6 +1,5 @@
 <script setup>
 import ProjectsView from '@/components/ProjectsView.vue'
-
 </script>
 <template>
   <div class="portfolio w-4/6 ml-auto mr-auto ">
