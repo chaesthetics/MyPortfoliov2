@@ -16,7 +16,7 @@ const projectForm = reactive({
     title: "",
     description: "",
     language: "",
-    role: "",
+    role: "Author",
     link: ""
 });
 
@@ -64,8 +64,7 @@ const fileHandler = async(event) => {
     </div>
     <p class="items-center text-gray-200 font-semibold text-2xl">My Projects</p>
     <hr class="h-1/2 bg-green-400">
-    <div class="main py-6 px-8 items-center flex space-x-20 w-2/3">
-    <button data-modal-target="project-modal" data-modal-toggle="project-modal" class="py-2 px-6 bg-neutral-800 text-white rounded-md hover:bg-green-700 shadow border hover:border-green-700 border-gray-600">Add New Project</button>
+    <div class="main px-8 items-center flex space-x-20 w-2/3">
 
     <!-- Project modal -->
                 <div id="project-modal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
@@ -106,7 +105,7 @@ const fileHandler = async(event) => {
                                         </div>
                                         <div class="flex flex-col">                                
                                         <label for="countries" class="mb-2 text-sm font-medium text-white dark:text-white">Role</label>
-                                        <select v-model="projectForm.role" id="countries" class="text-white bg-neutral-600 rounded-lg">
+                                        <select v-model="projectForm.role" placeholder="Select Role" id="countries" class="text-white bg-neutral-600 rounded-lg">
                                         <option class="hover:bg-green-700" value="Author">Author</option>
                                         <option class="hover:bg-green-700" value="Colaborator">Collaborator</option>
                                         </select>
@@ -121,6 +120,128 @@ const fileHandler = async(event) => {
                         </div>
                     </div>
                 </div> 
+                
     </div>
+    
+<div class="relative overflow-x-auto shadow-md sm:rounded-lg pb-4">
+    <div class="flex items-center justify-between pb-4">
+        <div>
+            <button id="dropdownRadioButton" data-dropdown-toggle="dropdownRadio" class="flex items-center py-2 px-6 bg-neutral-800 text-white rounded-md hover:bg-green-700 shadow border hover:border-green-700 border-gray-600" type="button">
+                <svg class="w-3 h-3 text-gray-500 dark:text-gray-400 mr-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm3.982 13.982a1 1 0 0 1-1.414 0l-3.274-3.274A1.012 1.012 0 0 1 9 10V6a1 1 0 0 1 2 0v3.586l2.982 2.982a1 1 0 0 1 0 1.414Z"/>
+                    </svg>
+                Last 30 days
+                <svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+                </svg>
+            </button>
+            <!-- Dropdown menu -->
+            <div id="dropdownRadio" class="z-10 hidden w-48 bg-neutral-800 divide-y divide-gray-600 rounded-lg" data-popper-reference-hidden="" data-popper-escaped="" data-popper-placement="top" style="position: absolute; inset: auto auto 0px 0px; margin: 0px; transform: translate3d(522.5px, 3847.5px, 0px);">
+                <ul class="p-3 space-y-1 text-sm text-white" aria-labelledby="dropdownRadioButton">
+                    <li>
+                        <div class="flex items-center p-2 text-white rounded hover:bg-neutral-700">
+                            <input id="filter-radio-example-1" type="radio" value="" name="filter-radio" class="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 focus:ring-green-500 dark:focus:ring-green-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                            <label for="filter-radio-example-1" class="w-full ml-2 text-sm font-medium text-white rounded dark:text-gray-300">Last day</label>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="flex items-center p-2 text-white rounded hover:bg-neutral-700">
+                            <input checked="" id="filter-radio-example-2" type="radio" value="" name="filter-radio" class="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 focus:ring-green-500 dark:focus:ring-green-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                            <label for="filter-radio-example-2" class="w-full ml-2 text-sm font-medium text-white rounded dark:text-gray-300">Last 7 days</label>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="flex items-center p-2 text-white rounded hover:bg-neutral-700">
+                            <input id="filter-radio-example-3" type="radio" value="" name="filter-radio" class="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 focus:ring-green-500 dark:focus:ring-green-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                            <label for="filter-radio-example-3" class="w-full ml-2 text-sm font-medium text-white rounded dark:text-gray-300">Last 30 days</label>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="flex items-center p-2 text-white rounded hover:bg-neutral-700">
+                            <input id="filter-radio-example-4" type="radio" value="" name="filter-radio" class="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 focus:ring-green-500 dark:focus:ring-green-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                            <label for="filter-radio-example-4" class="w-full ml-2 text-sm font-medium text-white rounded dark:text-gray-300">Last month</label>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="flex items-center p-2 text-white rounded hover:bg-neutral-700">
+                            <input id="filter-radio-example-5" type="radio" value="" name="filter-radio" class="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 focus:ring-green-500 dark:focus:ring-green-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                            <label for="filter-radio-example-5" class="w-full ml-2 text-sm font-medium text-white rounded dark:text-gray-300">Last year</label>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <label for="table-search" class="sr-only">Search</label>
+        <div class="relative">
+             <button data-modal-target="project-modal" data-modal-toggle="project-modal" class="py-2 px-6 bg-neutral-800 text-white rounded-md hover:bg-green-700 shadow border hover:border-green-700 border-gray-600">Add Project</button>
+        </div>
+    </div>
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400 divide-y-[1px]">
+        <thead class="text-xs bg-neutral-800 text-white uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+                <th scope="col" class="p-4">
+                    <div class="flex items-center">
+                        <input id="checkbox-all-search" type="checkbox" class="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 rounded focus:ring-green-500 dark:focus:ring-green-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                        <label for="checkbox-all-search" class="sr-only">checkbox</label>
+                    </div>
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    User Interface
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Title
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Description
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Language
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Role
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Git Repository
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Action
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="bg-neutral-700 border-b">
+                <td class="w-4 p-4">
+                    <div class="flex items-center">
+                        <input id="checkbox-table-search-1" type="checkbox" class="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 rounded focus:ring-green-500 dark:focus:ring-green-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                        <label for="checkbox-table-search-1" class="sr-only">checkbox</label>
+                    </div>
+                </td>
+                <th scope="row" class="px-6 py-4 font-medium text-white whitespace-nowrap dark:text-white">
+                    Apple MacBook Pro 17"
+                </th>
+                <td class="text-gray-200 px-6 py-4">
+                    Silver
+                </td>
+                <td class="text-gray-200 px-6 py-4">
+                    Laptop
+                </td>
+                <td class="text-gray-200 px-6 py-4">
+                    $2999
+                </td>
+                <td class="text-gray-200 px-6 py-4">
+                    $2999
+                </td>
+                <td class="text-gray-200 px-6 py-4">
+                    $2999
+                </td>
+                <td class="flex px-6 space-x-2 py-4">
+                    <a href="#" class="font-semibold text-green-400 dark:text-green-400 hover:underline">Edit</a>
+                    <a href="#" class="font-semibold text-green-400 dark:text-green-400 hover:underline">Delete</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
 </div>
 </template>
