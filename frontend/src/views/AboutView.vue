@@ -2,10 +2,20 @@
 
 import SkillsView from '@/components/SkillsView.vue';
 import ToolsView from '@/components/ToolsView.vue';
+import { onMounted } from "vue";
+import useAccount from "@/components/composables/account";
 
 import { ref } from 'vue';
 
 var isActive = ref('techstack');
+
+const { user, getUser } = useAccount();
+
+onMounted(()=>{
+
+  getUser();
+
+});
 
 const changeActive = (event) => {
   isActive.value = event.currentTarget.id;
@@ -18,7 +28,7 @@ const changeActive = (event) => {
     <div class="about w-5/6 md:w-4/6 ml-auto mr-auto mt-10 bg-neutral-800 pl-5 pr-4 pt-5 pb-10 rounded-xl">
       <p class="text-white font-bold text-lg pb-4 uppercase pl-4">About me</p><hr class="border-1 border-yellow-300 border md:mb-5">
       <div class="flex text-white  grid md:grid-cols-2 md:justify-around">
-        <img src="@/assets/25.jpg" class="h-[200px] w-[200px] mx-auto mt-10 md:mt-0 md:h-[250px] md:w-[250px] rounded-full">
+        <img :src="user.avatar" class="h-[200px] w-[200px] mx-auto mt-10 md:mt-0 md:h-[250px] md:w-[250px] rounded-full">
         <div class="max-w-50 mt-10 break-words space-y-3 text-md">
          <p class="flex justify-center text-center md:text-left md:justify-start">
           "Hi everyone! My name is Auriel James V. Fernandez from Mangatarem, Pangasinan. Currently, I am working as a Software QA Engineer.
