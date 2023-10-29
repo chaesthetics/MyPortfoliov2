@@ -51,13 +51,23 @@ export default function useAccount(){
         }
     }
 
-    const updateAvatar = async (data, id) => {
+    const updateAvatar = async(data, id) => {
         try{
             await axios.post("changeAvatar/"+id, data);
             getUser();
         }catch(error){
             if(error.response.status === 422){
                 errors.value = error.response.data.errors;
+            }
+        }
+    }
+
+    const createProject = async(data) => {
+        try{
+            await axios.post("createproject", data);
+        }catch(error){
+            if(error.response.status === 422){
+                error.value = error.reponse.data.errors;
             }
         }
     }
@@ -71,5 +81,6 @@ export default function useAccount(){
         getUser,
         updateUser,
         updateAvatar,
+        createProject,
     }   
 }
