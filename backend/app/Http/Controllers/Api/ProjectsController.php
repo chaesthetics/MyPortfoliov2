@@ -76,7 +76,14 @@ class ProjectsController extends Controller
     {
         $project = Project::find($id);
         try{
-            $project->update($request->all());
+            $project->update([
+                "title"=> $request->title,
+                "img" => $request->img,
+                "description" => $request->description,
+                "language" => $request->language,
+                "role" => $request->role,
+                "link" => $request->link,
+            ]);
         }catch(\Throwable $th){
             return response()->json([
                 "status" => false,
