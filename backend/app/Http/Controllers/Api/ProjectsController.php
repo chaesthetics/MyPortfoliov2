@@ -11,9 +11,29 @@ class ProjectsController extends Controller
 {
     public function getProjects()
     {
-        return response()->json("Welcome to my projects");
+        try{
+            $projects = Project::all();
+            return response()->json($projects);
+        }catch(\Throwable $th){
+            return response()->json([
+                "status" => false,
+                "message"=> $th->getMessage(),
+            ], 500);
+        }
     }
 
+    public function getProject($id)
+    {   
+        try{
+            $project = Project::find($id);
+            return response()->json($project);
+        }catch(\Throwable $th){
+            return response()->json([
+                "status" => false,
+                "message" => $th->getMessage(),
+            ], 500);
+        }
+    }
     public function createProject(Request $request)
     {
         $project = new Project();
@@ -49,6 +69,26 @@ class ProjectsController extends Controller
                 "status" => false,
                 "message" => $th->getMessage(),
             ], 500);
+        }
+    }
+
+    public function updateProject(Request $request, $id)
+    {
+        $project = Project::find($id);
+        try{
+            $project->update([
+                "title"=> $request->title,
+                "img" => $request->img,
+                "description" => $request->description,
+                "language" => $request->language,
+                "role" => $request->role,
+                "link" => $request->link,
+            ]);
+        }catch(\Throwable $th){
+            return response()->json([
+                "status" => false,
+                "message" => $th->getMessage(),
+            ],500);
         }
     }
 }

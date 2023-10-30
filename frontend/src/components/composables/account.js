@@ -8,6 +8,8 @@ export default function useAccount(){
     const user = ref([]);
     const errors = ref({});
     const router = useRouter();
+    const projects = ref([]);
+    const project = ref([]);
 
     const login = async (data) => {
         try{
@@ -69,6 +71,43 @@ export default function useAccount(){
             if(error.response.status === 422){
                 error.value = error.reponse.data.errors;
             }
+        }finally{
+            getProjects();
+        }
+    }
+
+    const getProjects = async() => {
+        try{
+            const response = await axios.get("projects");
+            projects.value = response.data;
+        }catch(error){
+            if(error.response.status === 422){
+                error.value = error.response.data.errors;  
+            }
+        } 
+    }
+
+    const getProject = async(id) => {
+        try{
+            const response = await axios.get("project/"+id);
+            project.value = response.data;
+        }catch(error){
+            if(error.response.status === 422){
+                error.value = error.response.data.error;
+            }
+        }
+    }
+
+    const updateProject = async(id, data) => {
+        try{
+            if(data.value!==null){
+                project.value.img = data.value;
+            }
+            await axios.post("project/"+id, project.value);
+        }catch(error){
+            if(error.response.status === 422){
+                error.value = error.response.data.error;
+            }
         }
     }
  
@@ -82,5 +121,10 @@ export default function useAccount(){
         updateUser,
         updateAvatar,
         createProject,
+        getProjects,
+        projects,
+        getProject,
+        project,
+        updateProject,
     }   
 }
