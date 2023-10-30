@@ -97,6 +97,16 @@ export default function useAccount(){
             }
         }
     }
+
+    const updateProject = async(id) => {
+        try{
+            await axios.post("project/update"+id, activeProject.value);
+        }catch(error){
+            if(error.response.status === 422){
+                error.value = error.response.data.error;
+            }
+        }
+    }
  
     return{
         errors,
@@ -111,6 +121,7 @@ export default function useAccount(){
         getProjects,
         projects,
         getProject,
-        activeProject
+        activeProject,
+        updateProject,
     }   
 }
