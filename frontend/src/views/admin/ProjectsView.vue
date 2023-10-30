@@ -3,9 +3,12 @@ import { initFlowbite } from 'flowbite';
 import { onMounted } from 'vue';
 import { reactive } from 'vue';
 import { ref } from 'vue';
+import { useRouter } from "vue-router";
+
 import useAccount from '@/components/composables/account';
 
-const { createProject, getProjects, projects } = useAccount();
+const { createProject, getProjects, projects, } = useAccount();
+const router = useRouter();
 
 onMounted(()=>{
     initFlowbite();
@@ -19,10 +22,11 @@ const projectForm = reactive({
     description: "",
     language: "",
     role: "Author",
-    link: ""
+    link: "",
 });
 
 const projectIMG = ref(null);
+const url = ref('');
 
 const convertToBase64 = async (file) => {
   return new Promise((resolve, reject) => {
@@ -36,7 +40,7 @@ const convertToBase64 = async (file) => {
 
 const fileHandler = async(event) => {
     const selectedFile = event.target.files[0];
-
+    url.value = URL.createObjectURL(selectedFile);
     if (selectedFile) {
     try {
         const base64Data = await convertToBase64(selectedFile);
@@ -48,10 +52,15 @@ const fileHandler = async(event) => {
   }
 }
 
-const submitHander = async() => {
+
+
+const submitHandler = async() => {
     await createProject(projectForm);
-    await getProjects();
     projectForm.clear();
+}
+
+const gotoEditProj = (projectId) => {
+    router.push({path: `/admin/projects/${projectId}`});
 }
 
 </script>
@@ -85,15 +94,17 @@ const submitHander = async() => {
                             </button>
                             <div class="px-6 py-6 lg:px-8">
                                 <h3 class="mb-4 text-xl font-medium text-white dark:text-white">Create new project</h3>
-                                <form class="space-y-6"  @submit.prevent="submitHander()">
+                                <form class="space-y-6"  @submit.prevent="submitHandler()">
                                     <div class="space-y-2 group">
                                             <label for="firstname" class="mb-2 text-sm font-medium text-white dark:text-white ">User Interface</label>
-                                            <input type="file" @change="fileHandler" class="text-white flex w-2/3 bg-green-700 border border-gray-600 border-1 group-hover:bg-green-600"/>
-                                    </div>
+                                            <input type="file" @change="fileHandler()" class="flex text-white text-xs cursor-pointer w-2/3 bg-neutral-700 border border-gray-600 border-1 group-hover:bg-neutral-600"/>
+                                            <p v-if="url != ''" class="text-white">text</p>
+                                    </div>      
                                     <div class="grid grid-cols-2 gap-3">
                                         <div>
                                             <label for="email" class="block mb-2 text-sm font-medium text-white dark:text-white">Project Title</label>
                                             <input v-model="projectForm.title" type="text" class="text-white bg-neutral-600  text-sm rounded-lg placeholder-gray-400  block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Title of your project">
+                                            
                                         </div>
                                         <div>
                                             <label for="email" class="block mb-2 text-sm font-medium text-white dark:text-white">Github Link</label>
@@ -141,7 +152,7 @@ const submitHander = async() => {
                 </svg>
             </button>
             <!-- Dropdown menu -->
-            <div id="dropdownRadio" class="z-10 hidden w-48 bg-neutral-800 divide-y divide-gray-600 rounded-lg" data-popper-reference-hidden="" data-popper-escaped="" data-popper-placement="top" style="position: absolute; inset: auto auto 0px 0px; margin: 0px; transform: translate3d(522.5px, 3847.5px, 0px);">
+            <div id="dropdownRadio" class="z-10 hidden w-48 bg-neutral-800 divide-y divide-white rounded-lg" data-popper-reference-hidden="" data-popper-escaped="" data-popper-placement="top" style="position: absolute; inset: auto auto 0px 0px; margin: 0px; transform: translate3d(522.5px, 3847.5px, 0px);">
                 <ul class="p-3 space-y-1 text-sm text-white" aria-labelledby="dropdownRadioButton">
                     <li>
                         <div class="flex items-center p-2 text-white rounded hover:bg-neutral-700">
@@ -210,8 +221,8 @@ const submitHander = async() => {
                 </th>
             </tr>
         </thead>
-        <tbody>
-            <tr v-for="project in projects" :key="project.id" class="bg-neutral-700 border-b items-center hover:bg-neutral-800">
+        <tbody class="divide-y divide-neutral-600">
+            <tr v-for="project in projects" :key="project.id" class="bg-neutral-700 items-center hover:bg-neutral-800 transition delay-900 w-full">
                 <td class="w-4 p-4">
                     <div class="flex items-center">
                         <input id="checkbox-table-search-1" type="checkbox" class="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 rounded focus:ring-green-500 dark:focus:ring-green-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
@@ -240,8 +251,8 @@ const submitHander = async() => {
                 </td>
                 <div class="flex items-center">
                 <td class="flex px-6 space-x-2 py-4 items-center mt-1/2">
-                    <a href="#" class="font-semibold text-white bg-green-700 px-4 py-2 rounded-sm border-none hover:bg-green-600">Edit</a>
-                    <a href="#" class="font-semibold text-white bg-red-800 px-4 py-2 rounded-sm border-none hover:bg-red-700">Delete</a>
+                    <button @click="gotoEditProj(project.id)" class="font-semibold text-white bg-green-700 px-4 py-2 rounded-sm border-none hover:bg-green-600">Edit</button>
+                    <button class="font-semibold text-white bg-red-800 px-4 py-2 rounded-sm border-none hover:bg-red-700">Delete</button>
                 </td>
                 </div>
             </tr>

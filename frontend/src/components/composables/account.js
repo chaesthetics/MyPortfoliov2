@@ -9,6 +9,7 @@ export default function useAccount(){
     const errors = ref({});
     const router = useRouter();
     const projects = ref([]);
+    const activeProject = ref([]);
 
     const login = async (data) => {
         try{
@@ -85,6 +86,17 @@ export default function useAccount(){
             }
         } 
     }
+
+    const getProject = async(id) => {
+        try{
+            const response = await axios.get("project/"+id);
+            activeProject.value = response.data;
+        }catch(error){
+            if(error.response.status === 422){
+                error.value = error.response.data.error;
+            }
+        }
+    }
  
     return{
         errors,
@@ -97,6 +109,8 @@ export default function useAccount(){
         updateAvatar,
         createProject,
         getProjects,
-        projects
+        projects,
+        getProject,
+        activeProject
     }   
 }

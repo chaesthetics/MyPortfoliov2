@@ -31,3 +31,4 @@ Route::post('/auth/changeAvatar/{id}', [UserController::class, 'updateAvatar']);
 
 Route::get("/auth/projects", [ProjectsController::class, "getProjects"]);
 Route::post("/auth/createproject", [ProjectsController::class,"createProject"]);
+Route::get("auth/project/{id}", [ProjectsController::class, "getProject"]);

@@ -21,6 +21,19 @@ class ProjectsController extends Controller
             ], 500);
         }
     }
+
+    public function getProject($id)
+    {   
+        try{
+            $project = Project::find($id);
+            return response()->json($project);
+        }catch(\Throwable $th){
+            return response()->json([
+                "status" => false,
+                "message" => $th->getMessage(),
+            ], 500);
+        }
+    }
     public function createProject(Request $request)
     {
         $project = new Project();
