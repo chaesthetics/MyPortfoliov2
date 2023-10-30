@@ -60,6 +60,11 @@ const router = createRouter({
           component: () => import('../views/admin/ProjectsView.vue')
         },
         {
+          path: '/admin/projects/:id',
+          name: 'editproject',
+          component: () => import('../views/admin/UpdateProject.vue')
+        },
+        {
           path: '/admin/techstacks',
           name: 'techstacks',
           component: () => import('../views/admin/TechstackView.vue')
