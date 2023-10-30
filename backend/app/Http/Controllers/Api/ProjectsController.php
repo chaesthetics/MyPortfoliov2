@@ -71,4 +71,24 @@ class ProjectsController extends Controller
             ], 500);
         }
     }
+
+    public function updateProject(Request $request, $id)
+    {
+        $project = Project::find($id);
+        try{
+            $project->update([
+                "title"=> $request->title,
+                "img" => $request->img,
+                "description" => $request->description,
+                "language" => $request->language,
+                "role" => $request->role,
+                "link" => $request->link,
+            ]);
+        }catch(\Throwable $th){
+            return response()->json([
+                "status" => false,
+                "message" => $th->getMessage(),
+            ],500);
+        }
+    }
 }
