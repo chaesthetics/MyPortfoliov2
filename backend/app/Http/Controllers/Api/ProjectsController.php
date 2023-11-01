@@ -91,4 +91,11 @@ class ProjectsController extends Controller
             ],500);
         }
     }
+
+    public function destroyProject($id)
+    {
+        $project = Project::find($id);
+        $project->delete();
+        return response()->json("Project Has been deleted");
+    }
 }

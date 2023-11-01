@@ -110,6 +110,11 @@ export default function useAccount(){
             }
         }
     }
+    
+    const deleteProject = async(id) => {
+        await axios.delete("project/delete/"+id);
+        getProjects();
+    }
  
     return{
         errors,
@@ -126,5 +131,6 @@ export default function useAccount(){
         getProject,
         project,
         updateProject,
+        deleteProject,
     }   
 }
