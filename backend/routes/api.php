@@ -33,3 +33,5 @@ Route::get("/auth/projects", [ProjectsController::class, "getProjects"]);
 Route::post("/auth/createproject", [ProjectsController::class,"createProject"]);
 Route::get("auth/project/{id}", [ProjectsController::class, "getProject"]);
 Route::post("auth/project/{id}", [ProjectsController::class,"updateProject"]);
+Route::delete("auth/project/delete/{id}", [ProjectsController::class,"destroyProject"]);
+

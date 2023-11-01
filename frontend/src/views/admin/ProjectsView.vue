@@ -7,7 +7,7 @@ import { useRouter } from "vue-router";
 
 import useAccount from '@/components/composables/account';
 
-const { createProject, getProjects, projects, } = useAccount();
+const { createProject, getProjects, projects, deleteProject } = useAccount();
 const router = useRouter();
 
 onMounted(()=>{
@@ -26,7 +26,6 @@ const projectForm = reactive({
 });
 
 const projectIMG = ref(null);
-const url = ref('');
 
 const convertToBase64 = async (file) => {
   return new Promise((resolve, reject) => {
@@ -39,13 +38,12 @@ const convertToBase64 = async (file) => {
 
 
 const fileHandler = async(event) => {
-    const selectedFile = event.target.files[0];
-    url.value = URL.createObjectURL(selectedFile);
+    const selectedFile =  event.target.files[0];
     if (selectedFile) {
     try {
         const base64Data = await convertToBase64(selectedFile);
-        projectIMG.value = base64Data;
-        projectForm.img = projectIMG;
+        projectForm.img = base64Data;
+        console.log(projectForm.img);
     }   catch (error) {
         console.error("Error converting image to Base64:", error);
     }
@@ -56,7 +54,6 @@ const fileHandler = async(event) => {
 
 const submitHandler = async() => {
     await createProject(projectForm);
-    projectForm.clear();
 }
 
 const gotoEditProj = (projectId) => {
@@ -97,8 +94,7 @@ const gotoEditProj = (projectId) => {
                                 <form class="space-y-6"  @submit.prevent="submitHandler()">
                                     <div class="space-y-2 group">
                                             <label for="firstname" class="mb-2 text-sm font-medium text-white dark:text-white ">User Interface</label>
-                                            <input type="file" @change="fileHandler()" class="flex text-white text-xs cursor-pointer w-2/3 bg-neutral-700 border border-gray-600 border-1 group-hover:bg-neutral-600"/>
-                                            <p v-if="url != ''" class="text-white">text</p>
+                                            <input type="file" @change="fileHandler" class="flex text-white text-xs cursor-pointer w-2/3 bg-neutral-700 border border-gray-600 border-1 group-hover:bg-neutral-600"/>
                                     </div>      
                                     <div class="grid grid-cols-2 gap-3">
                                         <div>
@@ -252,7 +248,7 @@ const gotoEditProj = (projectId) => {
                 <div class="flex items-center">
                 <td class="flex px-6 space-x-2 py-4 items-center mt-1/2">
                     <button @click="gotoEditProj(project.id)" class="font-semibold text-white bg-green-700 px-4 py-2 rounded-sm border-none hover:bg-green-600">Edit</button>
-                    <button class="font-semibold text-white bg-red-800 px-4 py-2 rounded-sm border-none hover:bg-red-700">Delete</button>
+                    <button @click="deleteProject(project.id)" class="font-semibold text-white bg-red-800 px-4 py-2 rounded-sm border-none hover:bg-red-700">Delete</button>
                 </td>
                 </div>
             </tr>
